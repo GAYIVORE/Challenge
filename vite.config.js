@@ -1,16 +1,22 @@
-import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
-  // You can set logLevel to 'info' or remove it to see helpful build logs again
-  logLevel: 'info', 
-  plugins: [
-    react(),
-  ],
+  logLevel: 'info',
+  plugins: [react()],
+  resolve: {
+    alias: {
+      // This maps the "@" symbol to your "src" folder
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   server: {
-    // This ensures your local dev environment runs smoothly
     port: 5173,
     host: true
   }
-});
+})
