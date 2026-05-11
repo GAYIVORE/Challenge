@@ -1,24 +1,14 @@
-import { useLocation } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
-import { useQuery } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthProvider'; // Import your new Auth hook
 
-
-export default function PageNotFound({}) {
+export default function PageNotFound() {
     const location = useLocation();
+    const navigate = useNavigate();
     const pageName = location.pathname.substring(1);
-
-    const { data: authData, isFetched } = useQuery({
-        queryKey: ['user'],
-        queryFn: async () => {
-            try {
-                const user = await base44.auth.me();
-                return { user, isAuthenticated: true };
-            } catch (error) {
-                return { user: null, isAuthenticated: false };
-            }
-        }
-    });
     
+    // Use the auth state directly from your new provider
+    const { user, isAuthenticated, authChecked } = useAuth();
+
     return (
         <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
             <div className="max-w-md w-full">
@@ -39,8 +29,8 @@ export default function PageNotFound({}) {
                         </p>
                     </div>
                     
-                    {/* Admin Note */}
-                    {isFetched && authData.isAuthenticated && authData.user?.role === 'admin' && (
+                    {/* Admin Note - Now using your custom auth logic */}
+                    {authChecked && isAuthenticated && user?.role === 'admin' && (
                         <div className="mt-8 p-4 bg-slate-100 rounded-lg border border-slate-200">
                             <div className="flex items-start space-x-3">
                                 <div className="flex-shrink-0 w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center mt-0.5">
@@ -49,7 +39,7 @@ export default function PageNotFound({}) {
                                 <div className="text-left space-y-1">
                                     <p className="text-sm font-medium text-slate-700">Admin Note</p>
                                     <p className="text-sm text-slate-600 leading-relaxed">
-                                        This could mean that the AI hasn't implemented this page yet. Ask it to implement it in the chat.
+                                        This route has not been defined in your App.js or main router file.
                                     </p>
                                 </div>
                             </div>
@@ -59,7 +49,7 @@ export default function PageNotFound({}) {
                     {/* Action Button */}
                     <div className="pt-6">
                         <button 
-                            onClick={() => window.location.href = '/'} 
+                            onClick={() => navigate('/')} // Using navigate instead of window.location for smoother UX
                             className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
                         >
                             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,5 +61,5 @@ export default function PageNotFound({}) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
