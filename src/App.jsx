@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import PageNotFound from '@/pages/PageNotFound'; // Adjusted path to a standard pages directory
+import PageNotFound from '@/lib/PageNotFound'; // Adjusted path to a standard pages directory
 import { AuthProvider, useAuth } from '@/contexts/AuthProvider'; // Pointing to your new context
 import Home from '@/pages/Home';
 import Login from '@/pages/Login'; // You'll need a standard Login page now
