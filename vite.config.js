@@ -19,4 +19,8 @@ export default defineConfig({
     port: 5173,
     host: true
   }
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> 87f96a4 (Final cleanup: Updated index.html and removed remaining Base44 references)
