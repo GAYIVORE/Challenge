@@ -5,5 +5,5 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs))
 } 
 
-
-export const isIframe = window.self !== window.top;
+// Prevents "window is not defined" error during build/SSR
+export const isIframe = typeof window !== 'undefined' && window.self !== window.top;

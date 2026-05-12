@@ -2,9 +2,9 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { appParams } from '@/lib/app-params';
 
+// 1. Rename this to AuthContext so it doesn't clash with the component name
 const AuthContext = createContext();
 
-// Create a base axios instance for your own API
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '', 
   headers: {
@@ -30,12 +30,10 @@ export const AuthProvider = ({ children }) => {
       setIsLoadingPublicSettings(true);
       setAuthError(null);
 
-      // 1. Fetch your own app settings or config from your backend
       try {
         const response = await api.get(`/public/settings/${appParams.appId}`);
         setAppPublicSettings(response.data);
 
-        // 2. Check if we have a token to verify the user
         if (appParams.token) {
           await checkUserAuth();
         } else {
@@ -54,8 +52,6 @@ export const AuthProvider = ({ children }) => {
   const checkUserAuth = async () => {
     try {
       setIsLoadingAuth(true);
-      
-      // Use the token from appParams (which looks in URL/LocalStorage)
       const response = await api.get('/auth/me', {
         headers: { Authorization: `Bearer ${appParams.token}` }
       });
@@ -100,20 +96,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    // Clear local data
     setUser(null);
     setIsAuthenticated(false);
-    
-    // Clear your storage keys defined in your updated app-params.js
     localStorage.removeItem('app_token');
     localStorage.removeItem('app_access_token');
-
-    // Redirect to home or login
     window.location.href = '/';
   };
 
   const navigateToLogin = () => {
-    // Redirect to your custom login route
     window.location.href = '/login';
   };
 
