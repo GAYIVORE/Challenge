@@ -4,7 +4,7 @@ import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from '@/lib/AuthProvider.js'; 
 import Home from '@/pages/Home';
-import PageNotFound from '@/lib/PageNotFound.jsx'; 
+import PageNotFound from '@/lib/PageNotFound.js'; 
 
 function App() {
   return (
