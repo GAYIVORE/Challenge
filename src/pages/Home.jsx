@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Download, Sparkles, Crown } from 'lucide-react';
 import { motion } from 'framer-motion';
-import PhotoUploader from "@/components/blueprint/PhotoUploader";
+import PhotoUploader from "@/components/blueprint/PhotoUploader.jsx";
 import TextInputs from '@/components/blueprint/TextInputs';
 import CanvasPreview from '@/components/blueprint/CanvasPreview';
 
