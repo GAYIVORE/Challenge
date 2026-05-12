@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
-import { Download, Sparkles, Crown } from 'lucide-react';
+import { Download, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import PhotoUploader from "@/components/blueprint/PhotoUploader.jsx";
+import PhotoUploader from '@/components/blueprint/PhotoUploader';
 import TextInputs from '@/components/blueprint/TextInputs';
 import CanvasPreview from '@/components/blueprint/CanvasPreview';
 
@@ -37,7 +37,11 @@ export default function Home() {
           className="relative max-w-4xl mx-auto text-center"
         >
           <div className="flex justify-center mb-4">
-            <Crown className="w-10 h-10 text-accent" />
+            <img
+              src="https://media.base44.com/images/public/6a0213882ed34b920445b369/bc269bd83_logo.jpg"
+              alt="PENSA UCC Logo"
+              className="w-16 h-16 rounded-full object-cover border-2 border-accent shadow-lg"
+            />
           </div>
           <h1 className="font-heading text-3xl md:text-5xl font-bold text-primary-foreground tracking-tight">
             The Success Blueprint

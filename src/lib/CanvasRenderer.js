@@ -1,5 +1,7 @@
 // Canvas renderer for the Success Blueprint card (1080x1920)
 
+const LOGO_URL = 'https://media.base44.com/images/public/6a0213882ed34b920445b369/bc269bd83_logo.jpg';
+
 const NAVY = '#002366';
 const GOLD = '#D4AF37';
 const WHITE = '#FFFFFF';
@@ -20,40 +22,14 @@ function drawRoundedRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function drawCrown(ctx, cx, cy, size) {
+function drawLogo(ctx, logoImg, cx, cy, size) {
+  if (!logoImg) return;
   ctx.save();
-  ctx.fillStyle = GOLD;
-  ctx.strokeStyle = GOLD;
-  ctx.lineWidth = 3;
-  
-  const w = size;
-  const h = size * 0.7;
-  const baseY = cy + h / 2;
-  const topY = cy - h / 2;
-  
   ctx.beginPath();
-  ctx.moveTo(cx - w / 2, baseY);
-  ctx.lineTo(cx - w / 2, baseY - h * 0.3);
-  ctx.lineTo(cx - w / 4, baseY - h * 0.15);
-  ctx.lineTo(cx - w / 8, topY);
-  ctx.lineTo(cx, baseY - h * 0.25);
-  ctx.lineTo(cx + w / 8, topY);
-  ctx.lineTo(cx + w / 4, baseY - h * 0.15);
-  ctx.lineTo(cx + w / 2, baseY - h * 0.3);
-  ctx.lineTo(cx + w / 2, baseY);
+  ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
   ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-
-  // Jewels
-  const jewels = [cx - w / 8, cx, cx + w / 8];
-  jewels.forEach(jx => {
-    ctx.beginPath();
-    ctx.arc(jx, topY + h * 0.15, size * 0.06, 0, Math.PI * 2);
-    ctx.fillStyle = WHITE;
-    ctx.fill();
-  });
-  
+  ctx.clip();
+  ctx.drawImage(logoImg, cx - size / 2, cy - size / 2, size, size);
   ctx.restore();
 }
 
@@ -75,7 +51,7 @@ function wrapText(ctx, text, maxWidth) {
   return lines;
 }
 
-export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
+export function renderBlueprint(canvas, { photo, vision, discipline, name, logoImg }) {
   const ctx = canvas.getContext('2d');
   const W = 1080;
   const H = 1920;
@@ -114,8 +90,8 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   ctx.lineTo(W - 100, lineY);
   ctx.stroke();
 
-  // Crown at top center
-  drawCrown(ctx, W / 2, lineY, 80);
+  // Logo at top center
+  drawLogo(ctx, logoImg, W / 2, lineY, 100);
 
   // === TITLE ===
   ctx.fillStyle = GOLD;
@@ -149,18 +125,15 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   const frameW = W - 240;
   const frameH = 620;
 
-  // White card background
   ctx.fillStyle = WHITE;
   drawRoundedRect(ctx, frameX, frameY, frameW, frameH, 16);
   ctx.fill();
 
-  // Inner shadow effect
   ctx.strokeStyle = '#e0e0e0';
   ctx.lineWidth = 1;
   drawRoundedRect(ctx, frameX + 2, frameY + 2, frameW - 4, frameH - 4, 14);
   ctx.stroke();
 
-  // "MY blueprint" text
   ctx.fillStyle = NAVY;
   ctx.font = '700 40px Poppins, sans-serif';
   ctx.textAlign = 'center';
@@ -177,7 +150,6 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   const photoAreaH = frameH - 110;
 
   if (photo) {
-    // Draw photo with rounded corners
     ctx.save();
     drawRoundedRect(ctx, photoAreaX, photoAreaY, photoAreaW, photoAreaH, 12);
     ctx.clip();
@@ -201,13 +173,11 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
     ctx.drawImage(photo, sx, sy, sw, sh, photoAreaX, photoAreaY, photoAreaW, photoAreaH);
     ctx.restore();
 
-    // Photo border
     ctx.strokeStyle = GOLD;
     ctx.lineWidth = 3;
     drawRoundedRect(ctx, photoAreaX, photoAreaY, photoAreaW, photoAreaH, 12);
     ctx.stroke();
   } else {
-    // Placeholder
     ctx.fillStyle = '#f0f0f0';
     drawRoundedRect(ctx, photoAreaX, photoAreaY, photoAreaW, photoAreaH, 12);
     ctx.fill();
@@ -230,7 +200,6 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   // === MY VISION SECTION ===
   const visionY = 1060;
   
-  // Gold label
   ctx.fillStyle = GOLD;
   drawRoundedRect(ctx, 80, visionY, 220, 44, 6);
   ctx.fill();
@@ -240,7 +209,6 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   ctx.textAlign = 'center';
   ctx.fillText('MY VISION:', 190, visionY + 30);
 
-  // Vision text area
   ctx.fillStyle = WHITE;
   drawRoundedRect(ctx, 310, visionY, W - 390, 44, 6);
   ctx.fill();
@@ -259,7 +227,6 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
     });
   }
 
-  // Underline
   ctx.strokeStyle = NAVY;
   ctx.lineWidth = 1.5;
   ctx.beginPath();
@@ -307,13 +274,11 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   days.forEach((day, i) => {
     const cx = startX + i * circleSpacing;
     
-    // Outer circle
     ctx.beginPath();
     ctx.arc(cx, trackerY, 42, 0, Math.PI * 2);
     ctx.fillStyle = colors[i];
     ctx.fill();
     
-    // Inner circle
     ctx.beginPath();
     ctx.arc(cx, trackerY, 34, 0, Math.PI * 2);
     ctx.fillStyle = WHITE;
@@ -338,7 +303,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   ctx.fillStyle = NAVY;
   ctx.font = '600 20px Poppins, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('HOW TO JOIN: 1.Fill This Template  2.Post on your story  3.Tag @PENSAUCC', W / 2, joinY + 33);
+  ctx.fillText('HOW TO JOIN:  1. Fill This Template   2. Post on your story   3. Tag @PENSAUCC', W / 2, joinY + 33);
 
   // === NAME SECTION ===
   if (name) {
@@ -352,7 +317,6 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   // === BOTTOM PANEL DISCUSSION SECTION ===
   const panelY = 1490;
   
-  // Dark navy panel
   ctx.fillStyle = DARK_NAVY;
   drawRoundedRect(ctx, 60, panelY, W - 120, 110, 12);
   ctx.fill();
@@ -364,7 +328,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
   ctx.fillStyle = WHITE;
   ctx.font = '600 22px Poppins, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('Join Us And Be Blessed:', W / 2, panelY + 38);
+  ctx.fillText('Join the Panel Discussion:', W / 2, panelY + 38);
 
   ctx.fillStyle = GOLD;
   ctx.font = '700 26px Poppins, sans-serif';
@@ -380,10 +344,10 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name }) {
 
   ctx.fillStyle = GOLD;
   ctx.font = 'italic 500 22px Playfair Display, serif';
-  ctx.fillText('Becoming Kings with Discipline', W / 2, brandY + 35);
+  ctx.fillText('Crowned with Purpose', W / 2, brandY + 35);
 
-  // === CROWN UNDER BRAND ===
-  drawCrown(ctx, W / 2, brandY + 75, 50);
+  // === LOGO UNDER BRAND ===
+  drawLogo(ctx, logoImg, W / 2, brandY + 75, 80);
 
   // === HASHTAG ===
   ctx.fillStyle = LIGHT_GOLD;
