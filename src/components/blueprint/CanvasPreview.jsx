@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react';
-import { renderBlueprint } from '@/lib/canvasRenderer';
+import { renderBlueprint } from '@/lib/CanvasRenderer.js';
 
 export default function CanvasPreview({ photoDataUrl, vision, discipline, name, canvasRef }) {
   const internalRef = useRef(null);
