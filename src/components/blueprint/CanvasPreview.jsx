@@ -1,27 +1,31 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
-import { renderBlueprint } from '@/lib/canvasRenderer';
+import { renderBlueprint } from '@/lib/CanvasRenderer';
 
-const LOGO_URL = 'https://media.base44.com/images/public/6a0213882ed34b920445b369/bc269bd83_logo.jpg';
+// 1. Import your local logo file directly
+import logoFile from '@/logo.jpg'; 
 
 export default function CanvasPreview({ photoDataUrl, vision, discipline, name, canvasRef }) {
   const internalRef = useRef(null);
   const ref = canvasRef || internalRef;
   const [logoImg, setLogoImg] = useState(null);
 
+  // 2. Load the local image into an HTMLImageElement
   useEffect(() => {
     const img = new Image();
-    img.crossOrigin = 'anonymous';
+    // No need for crossOrigin 'anonymous' for local files, 
+    // but keeping it doesn't hurt if you ever switch back to a URL
     img.onload = () => setLogoImg(img);
-    img.src = LOGO_URL;
+    img.onerror = () => console.error("Failed to load logo from src/logo.jpg");
+    img.src = logoFile; 
   }, []);
 
   const render = useCallback(() => {
     const canvas = ref.current;
     if (!canvas) return;
 
+    // We only render if the logo is ready (optional, or you can render without it)
     if (photoDataUrl) {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
       img.onload = () => {
         renderBlueprint(canvas, { photo: img, vision, discipline, name, logoImg });
       };
