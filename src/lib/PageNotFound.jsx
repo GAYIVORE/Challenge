@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthProvider'; // Import your new Auth hook
+import { useAuth } from '@/lib/AuthProvider'; // Import your new Auth hook
 
 export default function PageNotFound() {
     const location = useLocation();
