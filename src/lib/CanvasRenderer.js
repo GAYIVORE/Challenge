@@ -117,15 +117,15 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   drawLogo(ctx, logoImg, W / 2, lineY, 110);
 
   // === TITLE ===
-  ctx.fillStyle = GOLD;
+  ctx.fillStyle = WHITE;
   ctx.font = '700 52px "Playfair Display", serif';
   ctx.textAlign = 'center';
-  ctx.fillText('THE SUCCESS BLUEPRINT', W / 2, 195);
+  ctx.fillText('PENSA UCC', W / 2, 200);
 
-  ctx.fillStyle = WHITE;
+  ctx.fillStyle = GOLD;
   ctx.font = '600 28px Poppins, sans-serif';
   ctx.letterSpacing = '8px';
-  ctx.fillText('P O S T I N G   C H A L L E N G E', W / 2, 240);
+  ctx.fillText('THE SUCCESS BLUEPRINT', W / 2, 245);
 
   // === SECTION HEADER ===
   const sectionY = 290;
@@ -139,7 +139,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
 
   ctx.fillStyle = NAVY;
   ctx.font = '700 24px Poppins, sans-serif';
-  ctx.fillText('VISION BOARD & CHALLENGE TRACKER', W / 2, sectionY + 35);
+  ctx.fillText("LADIES' AND GENTS' WEEK CELEBRATION", W / 2, sectionY + 35);
 
   // === PHOTO FRAME ===
   const frameX = 120;
