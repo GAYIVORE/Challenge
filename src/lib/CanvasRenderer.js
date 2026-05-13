@@ -261,32 +261,111 @@ const trackerY = 1240;
     ctx.fillText(`— ${name.toUpperCase()} —`, W / 2, 1465);
   }
 
-  // === PANEL SECTION ===
-  const panelY = 1510;
+   // === PANEL SECTION ===
+  const panelY = 1530;
   ctx.fillStyle = DARK_NAVY;
   drawRoundedRect(ctx, 60, panelY, W - 120, 110, 12);
   ctx.fill();
   ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 2;
+  drawRoundedRect(ctx, 60, panelY, W - 120, 110, 12);
   ctx.stroke();
   ctx.fillStyle = WHITE;
   ctx.font = '600 22px Poppins';
+  ctx.textAlign = 'center';
   ctx.fillText('Join the Panel Discussion:', W / 2, panelY + 38);
   ctx.fillStyle = GOLD;
   ctx.font = '700 26px Poppins';
   ctx.fillText('THURSDAY  |  APEWOSIKA AUDITORIUM  |  6:30 PM', W / 2, panelY + 78);
 
-  // === BRANDING ===
-  const brandY = 1680;
-  ctx.fillStyle = WHITE;
-  ctx.font = '800 42px Poppins';
-  ctx.fillText('PENSA UCC', W / 2, brandY);
-  ctx.fillStyle = GOLD;
-  ctx.font = 'italic 500 22px "Playfair Display"';
-  ctx.fillText('Crowned with Purpose', W / 2, brandY + 35);
 
-  drawLogo(ctx, logoImg, W / 2, brandY + 95, 90);
-  
+  // === LADIES & GENTS WEEK CELEBRATION BANNER ===
+  const brandY = 1650;
+  const bW = 960;
+  const bH = 200;
+  const bX = (W - bW) / 2;
+  const centerX = W / 2;
+
+  // Outer ornate border (cream/white background)
+  ctx.fillStyle = '#F9F3E3';
+  drawRoundedRect(ctx, bX, brandY, bW, bH, 8);
+  ctx.fill();
+
+  // Double-line border
+  ctx.strokeStyle = NAVY;
+  ctx.lineWidth = 3;
+  drawRoundedRect(ctx, bX, brandY, bW, bH, 8);
+  ctx.stroke();
+
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 1.5;
+  drawRoundedRect(ctx, bX + 8, brandY + 8, bW - 16, bH - 16, 5);
+  ctx.stroke();
+
+  // Corner decorative notches
+  const notchSize = 18;
+  [[bX, brandY], [bX + bW, brandY], [bX, brandY + bH], [bX + bW, brandY + bH]].forEach(([nx, ny]) => {
+    ctx.strokeStyle = NAVY;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(nx, ny, notchSize, 0, Math.PI * 2);
+    ctx.stroke();
+  });
+
+  // Top thin gold rule
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(bX + 40, brandY + 20);
+  ctx.lineTo(bX + bW - 40, brandY + 20);
+  ctx.stroke();
+
+  // "LADIES" text
+  ctx.fillStyle = NAVY;
+  ctx.font = 'bold 80px "Poppins", sans-serif';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('LADIES', centerX - 48, brandY + 88);
+
+  // "&" in gold italic
+  ctx.fillStyle = GOLD;
+  ctx.font = 'italic bold 90px "Playfair Display", serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('&', centerX, brandY + 86);
+
+  // "GENTS" text
+  ctx.fillStyle = NAVY;
+  ctx.font = 'bold 80px "Poppins", sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('GENTS', centerX + 48, brandY + 88);
+
+  // Divider line before subtitle
+  ctx.strokeStyle = NAVY;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(bX + 30, brandY + 130);
+  ctx.lineTo(bX + bW - 30, brandY + 130);
+  ctx.stroke();
+
+  // "WEEK CELEBRATION" subtitle
+  ctx.fillStyle = NAVY;
+  ctx.font = 'bold 36px "Poppins", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('WEEK CELEBRATION', centerX, brandY + 165);
+  ctx.letterSpacing = '0px';
+
+  // Bottom thin gold rule
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(bX + 40, brandY + bH - 18);
+  ctx.lineTo(bX + bW - 40, brandY + bH - 18);
+  ctx.stroke();
+
   ctx.fillStyle = LIGHT_GOLD;
   ctx.font = '500 22px Poppins';
-  ctx.fillText('#CrownedWithPurpose', W / 2, brandY + 165);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText('#CrownedWithPurpose', centerX, brandY + bH + 55);
 }
