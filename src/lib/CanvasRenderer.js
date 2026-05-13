@@ -154,12 +154,12 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillStyle = NAVY;
   ctx.font = '700 40px Poppins, sans-serif';
   ctx.textAlign = 'right';
-  ctx.fillText('MY', W / 2 - 20, frameY + 55);
+  ctx.fillText('MY', W / 2 - 30, frameY + 55);
   
   ctx.fillStyle = GOLD;
   ctx.font = 'italic 700 44px "Playfair Display", serif';
   ctx.textAlign = 'left';
-  ctx.fillText('blueprint', W / 2 + 20, frameY + 57);
+  ctx.fillText('blueprint', W / 2 - 25, frameY + 57);
 
   // Photo Drawing Logic
   const pAreaX = frameX + 60, pAreaY = frameY + 80, pAreaW = frameW - 120, pAreaH = frameH - 110;
@@ -252,7 +252,7 @@ const trackerY = 1240;
   drawRoundedRect(ctx, 60, joinY, W - 120, 50, 8);
   ctx.fill();
   ctx.fillStyle = NAVY;
-  ctx.font = '500 20px Poppins';
+  ctx.font = '600 20px Poppins';
   ctx.fillText('HOW TO JOIN: 1.Fill Template 2.Post to Story 3.Tag @PENSAUCC', W/2, joinY + 33);
 
   if (name) {
