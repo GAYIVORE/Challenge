@@ -284,19 +284,24 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.font = '26px serif';
   ctx.textAlign = 'center';
   ctx.fillText('👑', W / 2, affirmY + affirmH - 14);
+  
+  
   // === JOIN BAR ===
-  const joinY = 1380;
+  const joinY = 1420;
   ctx.fillStyle = GOLD;
   drawRoundedRect(ctx, 60, joinY, W - 120, 50, 8);
   ctx.fill();
   ctx.fillStyle = NAVY;
   ctx.font = '600 20px Poppins';
-  ctx.fillText('HOW TO JOIN: 1.Fill Template 2.Post to Story 3.Tag @PENSAUCC', W/2, joinY + 33);
+  ctx.textAlign = 'center';
+  ctx.fillText('HOW TO JOIN: 1.Fill Template  2.Post to Story  3.Tag @PENSAUCC', W / 2, joinY + 33);
 
+  // === NAME ===
   if (name) {
     ctx.fillStyle = LIGHT_GOLD;
     ctx.font = '600 26px Poppins';
-    ctx.fillText(`— ${name.toUpperCase()} —`, W / 2, 1465);
+    ctx.textAlign = 'center';
+    ctx.fillText(`— ${name.toUpperCase()} —`, W / 2, 1505);
   }
 
    // === PANEL SECTION ===
