@@ -392,7 +392,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.font = 'bold 80px "Poppins", sans-serif';
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
-  ctx.fillText('LADIES', centerX - 48, brandY + 88);
+  ctx.fillText("LADIES'", centerX - 48, brandY + 88);
 
   // "&" in gold italic
   ctx.fillStyle = GOLD;
@@ -404,7 +404,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillStyle = NAVY;
   ctx.font = 'bold 80px "Poppins", sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('GENTS', centerX + 48, brandY + 88);
+  ctx.fillText("GENTS'", centerX + 48, brandY + 88);
 
   // Divider line before subtitle
   ctx.strokeStyle = NAVY;
