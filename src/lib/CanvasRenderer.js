@@ -95,7 +95,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.lineWidth = 4;
   drawRoundedRect(ctx, 30, 30, W - 60, H - 60, 20);
   ctx.stroke();
-
+  
   ctx.lineWidth = 1.5;
   drawRoundedRect(ctx, 42, 42, W - 84, H - 84, 16);
   ctx.stroke();
@@ -155,7 +155,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.font = '700 40px Poppins, sans-serif';
   ctx.textAlign = 'right';
   ctx.fillText('MY', W / 2 - 30, frameY + 55);
-
+  
   ctx.fillStyle = GOLD;
   ctx.font = 'italic 700 44px "Playfair Display", serif';
   ctx.textAlign = 'left';
@@ -183,7 +183,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
     ctx.fillStyle = '#bbb';
     ctx.textAlign = 'center';
     ctx.font = '500 24px Poppins';
-    ctx.fillText('PHOTO AREA', W / 2, pAreaY + pAreaH / 2);
+    ctx.fillText('PHOTO AREA', W/2, pAreaY + pAreaH/2);
   }
 
   // === VISION & DISCIPLINE ===
@@ -209,7 +209,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   drawEntry(1130, 'DAILY DISCIPLINE:', discipline, '[Your daily habit]');
 
   // === DAY TRACKER ===
-  const trackerY = 1240;
+const trackerY = 1240;
 
   // 1. Draw a subtle, semi-transparent background bar for the statement
   ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
@@ -233,18 +233,18 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.letterSpacing = '0px';
 
   const affirmation = "I am a vessel of divine purpose, refining my character through the fire of discipline. I do not just carry a title; I carry the responsibility of a King/Queen, crowned with a vision that outlives me.";
-
+  
   // Wrap the text to ensure it stays within the professional bar
   const maxWidth = W - 320;
   const lines = wrapText(ctx, affirmation, maxWidth);
-
+  
   lines.forEach((line, index) => {
     ctx.fillText(line, 150, trackerY + 50 + (index * 35));
   });
 
   // 5. Add a small "Crown" icon or decorative element at the end (Optional)
   ctx.font = '24px serif';
-  ctx.fillText('👑', 150 + ctx.measureText(lines[lines.length - 1]).width + 15, trackerY + 50 + ((lines.length - 1) * 35));
+  ctx.fillText('👑', 150 + ctx.measureText(lines[lines.length-1]).width + 15, trackerY + 50 + ((lines.length-1) * 35));
 
   // === JOIN BAR ===
   const joinY = 1380;
@@ -253,7 +253,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fill();
   ctx.fillStyle = NAVY;
   ctx.font = '600 20px Poppins';
-  ctx.fillText('HOW TO JOIN: 1.Fill Template 2.Post to Story 3.Tag @PENSAUCC', W / 2, joinY + 33);
+  ctx.fillText('HOW TO JOIN: 1.Fill Template 2.Post to Story 3.Tag @PENSAUCC', W/2, joinY + 33);
 
   if (name) {
     ctx.fillStyle = LIGHT_GOLD;
@@ -276,75 +276,16 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillText('THURSDAY  |  APEWOSIKA AUDITORIUM  |  6:30 PM', W / 2, panelY + 78);
 
   // === BRANDING ===
-  // --- CONFIGURATION ---
-  const headerY = 200; // Vertical position
-  const headerW = 900; // Width of the decorative box
-  const headerH = 180;
-  const centerX = W / 2;
-
-  // --- 1. THE ORNATE BORDER (Replicating the image_386160.png frame) ---
-  ctx.strokeStyle = GOLD;
-  ctx.lineWidth = 2;
-
-  // Draw the outer bracketed frame
-  ctx.beginPath();
-  const indent = 40;
-  // Top line with notches
-  ctx.moveTo(centerX - headerW / 2 + indent, headerY);
-  ctx.lineTo(centerX + headerW / 2 - indent, headerY);
-  // Right bracket
-  ctx.quadraticCurveTo(centerX + headerW / 2, headerY, centerX + headerW / 2, headerY + indent);
-  ctx.lineTo(centerX + headerW / 2, headerY + headerH - indent);
-  ctx.quadraticCurveTo(centerX + headerW / 2, headerY + headerH, centerX + headerW / 2 - indent, headerY + headerH);
-  // Bottom line
-  ctx.lineTo(centerX - headerW / 2 + indent, headerY + headerH);
-  // Left bracket
-  ctx.quadraticCurveTo(centerX - headerW / 2, headerY + headerH, centerX - headerW / 2, headerY + headerH - indent);
-  ctx.lineTo(centerX - headerW / 2, headerY + indent);
-  ctx.quadraticCurveTo(centerX - headerW / 2, headerY, centerX - headerW / 2 + indent, headerY);
-  ctx.stroke();
-
-  // Inner thin gold lines (Double border effect)
-  ctx.lineWidth = 1;
-  ctx.strokeRect(centerX - headerW / 2 + 15, headerY + 15, headerW - 30, headerH - 30);
-
-  // --- 2. THE MAIN TEXT: LADIES & GENTS ---
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-
-  // "LADIES"
-  ctx.fillStyle = NAVY;
-  ctx.font = 'bold 85px "Poppins", sans-serif'; // Bold sans-serif like the image
-  ctx.fillText('LADIES', centerX - 240, headerY + headerH / 2 - 10);
-
-  // The Decorative "&"
+  const brandY = 1680;
+  ctx.fillStyle = WHITE;
+  ctx.font = '800 42px Poppins';
+  ctx.fillText('PENSA UCC', W / 2, brandY);
   ctx.fillStyle = GOLD;
-  ctx.font = 'italic 500 120px "Playfair Display", serif';
-  ctx.fillText('&', centerX, headerY + headerH / 2 - 5);
+  ctx.font = 'italic 500 22px "Playfair Display"';
+  ctx.fillText('Crowned with Purpose', W / 2, brandY + 35);
 
-  // "GENTS"
-  ctx.fillStyle = NAVY;
-  ctx.font = 'bold 85px "Poppins", sans-serif';
-  ctx.fillText('GENTS', centerX + 240, headerY + headerH / 2 - 10);
-
-  // --- 3. THE SUBTITLE: WEEK CELEBRATION ---
-  // Gold separator lines
-  ctx.strokeStyle = GOLD;
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(centerX - headerW / 2 + 60, headerY + headerH + 20);
-  ctx.lineTo(centerX - 100, headerY + headerH + 20);
-  ctx.moveTo(centerX + 100, headerY + headerH + 20);
-  ctx.lineTo(centerX + headerW / 2 - 60, headerY + headerH + 20);
-  ctx.stroke();
-
-  // Subtitle text
-  ctx.fillStyle = NAVY;
-  ctx.font = '800 45px "Poppins", sans-serif';
-  ctx.letterSpacing = '4px';
-  ctx.fillText('WEEK CELEBRATION', centerX, headerY + headerH + 25);
-  ctx.letterSpacing = '0px'; // Reset
-
+  drawLogo(ctx, logoImg, W / 2, brandY + 95, 90);
+  
   ctx.fillStyle = LIGHT_GOLD;
   ctx.font = '500 22px Poppins';
   ctx.fillText('#CrownedWithPurpose', W / 2, brandY + 165);
