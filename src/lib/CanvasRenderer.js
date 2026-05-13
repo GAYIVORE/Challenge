@@ -188,25 +188,49 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
 
   // === VISION & DISCIPLINE ===
   const drawEntry = (y, label, val, placeholder) => {
-    ctx.fillStyle = GOLD;
-    drawRoundedRect(ctx, 80, y, 220, 44, 6);
-    ctx.fill();
-    ctx.fillStyle = NAVY;
-    ctx.font = '700 20px Poppins';
-    ctx.textAlign = 'center';
-    ctx.fillText(label, 190, y + 30);
+    const labelW = 270;
+    const labelX = 70;
+    const valueX = labelX + labelW + 12;
+    const valueW = W - valueX - 70;
+    const rowH = 52;
 
-    ctx.fillStyle = WHITE;
-    drawRoundedRect(ctx, 310, y, W - 390, 44, 6);
+    // Label pill (gold)
+    ctx.fillStyle = GOLD;
+    drawRoundedRect(ctx, labelX, y, labelW, rowH, 8);
     ctx.fill();
     ctx.fillStyle = NAVY;
+    ctx.font = '700 19px Poppins';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, labelX + labelW / 2, y + rowH / 2);
+
+    // Value box (white with gold border)
+    ctx.fillStyle = WHITE;
+    drawRoundedRect(ctx, valueX, y, valueW, rowH, 8);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(212,175,55,0.5)';
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, valueX, y, valueW, rowH, 8);
+    ctx.stroke();
+
+    // Value text — bold and dark for visibility
+    ctx.fillStyle = val ? '#001744' : '#999';
     ctx.textAlign = 'left';
-    ctx.font = '500 18px Poppins';
-    ctx.fillText(val || placeholder, 325, y + 29);
+    ctx.font = val ? '600 20px Poppins' : '400 18px Poppins';
+    ctx.textBaseline = 'middle';
+
+    // Clip long text
+    ctx.save();
+    drawRoundedRect(ctx, valueX + 2, y, valueW - 4, rowH, 8);
+    ctx.clip();
+    ctx.fillText(val || placeholder, valueX + 18, y + rowH / 2);
+    ctx.restore();
+
+    ctx.textBaseline = 'alphabetic';
   };
 
-  drawEntry(1060, 'MY VISION:', vision, '[Vision for the year]');
-  drawEntry(1130, 'DAILY DISCIPLINE:', discipline, '[Your daily habit]');
+  drawEntry(1050, 'MY VISION:', vision, '[Vision for the year]');
+  drawEntry(1118, 'DAILY DISCIPLINE:', discipline, '[Your daily habit]');
 
 
   // === AFFIRMATION SECTION ===
