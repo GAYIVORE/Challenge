@@ -318,7 +318,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillStyle = NAVY;
   ctx.font = '600 20px Poppins';
   ctx.textAlign = 'center';
-  ctx.fillText('HOW TO JOIN: 1.Fill Template  2.Post to Story  3.Tag @PENSAUCC', W / 2, joinY + 33);
+  ctx.fillText('HOW TO JOIN:  1.Fill Template   2.Post to Story   3.Tag @PENSAUCC', W / 2, joinY + 33);
 
   // === NAME ===
   if (name) {
