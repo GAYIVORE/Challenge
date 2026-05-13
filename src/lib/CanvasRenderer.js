@@ -120,10 +120,10 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillStyle = WHITE;
   ctx.font = '700 52px "Playfair Display", serif';
   ctx.textAlign = 'center';
-  ctx.fillText('PENSA UCC', W / 2, 200);
+  ctx.fillText('PENSA UCC', W / 2, 205);
 
   ctx.fillStyle = GOLD;
-  ctx.font = '600 28px Poppins, sans-serif';
+  ctx.font = '605 28px Poppins, sans-serif';
   ctx.letterSpacing = '8px';
   ctx.fillText('THE SUCCESS BLUEPRINT', W / 2, 245);
 
@@ -154,12 +154,12 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillStyle = NAVY;
   ctx.font = '700 40px Poppins, sans-serif';
   ctx.textAlign = 'right';
-  ctx.fillText('MY', W / 2 - 10, frameY + 55);
+  ctx.fillText('MY', W / 2 - 20, frameY + 55);
   
   ctx.fillStyle = GOLD;
   ctx.font = 'italic 700 44px "Playfair Display", serif';
   ctx.textAlign = 'left';
-  ctx.fillText('blueprint', W / 2 + 10, frameY + 57);
+  ctx.fillText('blueprint', W / 2 + 20, frameY + 57);
 
   // Photo Drawing Logic
   const pAreaX = frameX + 60, pAreaY = frameY + 80, pAreaW = frameW - 120, pAreaH = frameH - 110;
@@ -209,25 +209,42 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   drawEntry(1130, 'DAILY DISCIPLINE:', discipline, '[Your daily habit]');
 
   // === DAY TRACKER ===
-  const trackerY = 1240;
-  ['D1', 'D2', 'D3'].forEach((day, i) => {
-    const cx = (W / 2 - 200) + i * 200;
-    ctx.beginPath();
-    ctx.arc(cx, trackerY, 42, 0, Math.PI * 2);
-    ctx.fillStyle = GOLD;
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(cx, trackerY, 34, 0, Math.PI * 2);
-    ctx.fillStyle = WHITE;
-    ctx.fill();
-    ctx.fillStyle = NAVY;
-    ctx.textAlign = 'center';
-    ctx.font = '800 24px Poppins';
-    ctx.fillText(day, cx, trackerY + 9);
-    ctx.fillStyle = WHITE;
-    ctx.font = '600 16px Poppins';
-    ctx.fillText(`DAY ${i+1}`, cx, trackerY + 65);
+const trackerY = 1240;
+
+  // 1. Draw a subtle, semi-transparent background bar for the statement
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+  drawRoundedRect(ctx, 100, trackerY - 40, W - 200, 140, 15);
+  ctx.fill();
+
+  // 2. Decorative Gold Accent (A thin vertical line on the left)
+  ctx.fillStyle = GOLD;
+  ctx.fillRect(130, trackerY - 20, 4, 100);
+
+  // 3. Header: The Milestone Label
+  ctx.textAlign = 'left';
+  ctx.fillStyle = GOLD;
+  ctx.font = 'bold 22px Poppins';
+  ctx.letterSpacing = '2px';
+  ctx.fillText('THE MILESTONE: DAY 3', 150, trackerY + 5);
+
+  // 4. The Affirmation Statement
+  ctx.fillStyle = WHITE;
+  ctx.font = 'italic 500 28px "Playfair Display"';
+  ctx.letterSpacing = '0px';
+
+  const affirmation = "I am a vessel of divine purpose, refining my character through the fire of discipline. I do not just carry a title; I carry the responsibility of a King/Queen, crowned with a vision that outlives me.";
+  
+  // Wrap the text to ensure it stays within the professional bar
+  const maxWidth = W - 320;
+  const lines = wrapText(ctx, affirmation, maxWidth);
+  
+  lines.forEach((line, index) => {
+    ctx.fillText(line, 150, trackerY + 50 + (index * 35));
   });
+
+  // 5. Add a small "Crown" icon or decorative element at the end (Optional)
+  ctx.font = '24px serif';
+  ctx.fillText('👑', 150 + ctx.measureText(lines[lines.length-1]).width + 15, trackerY + 50 + ((lines.length-1) * 35));
 
   // === JOIN BAR ===
   const joinY = 1380;
@@ -235,8 +252,8 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   drawRoundedRect(ctx, 60, joinY, W - 120, 50, 8);
   ctx.fill();
   ctx.fillStyle = NAVY;
-  ctx.font = '600 20px Poppins';
-  ctx.fillText('HOW TO JOIN: 1. Fill Template  2. Post to Story  3. Tag @PENSAUCC', W/2, joinY + 33);
+  ctx.font = '500 20px Poppins';
+  ctx.fillText('HOW TO JOIN: 1.Fill Template 2.Post to Story 3.Tag @PENSAUCC', W/2, joinY + 33);
 
   if (name) {
     ctx.fillStyle = LIGHT_GOLD;
@@ -256,7 +273,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillText('Join the Panel Discussion:', W / 2, panelY + 38);
   ctx.fillStyle = GOLD;
   ctx.font = '700 26px Poppins';
-  ctx.fillText('THURSDAY  |  APEWOSIKA  |  6:30 PM', W / 2, panelY + 78);
+  ctx.fillText('THURSDAY  |  APEWOSIKA AUDITORIUM  |  6:30 PM', W / 2, panelY + 78);
 
   // === BRANDING ===
   const brandY = 1680;
