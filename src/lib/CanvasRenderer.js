@@ -208,44 +208,82 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   drawEntry(1060, 'MY VISION:', vision, '[Vision for the year]');
   drawEntry(1130, 'DAILY DISCIPLINE:', discipline, '[Your daily habit]');
 
-  // === DAY TRACKER ===
-const trackerY = 1240;
 
-  // 1. Draw a subtle, semi-transparent background bar for the statement
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-  drawRoundedRect(ctx, 100, trackerY - 40, W - 200, 140, 15);
+  // === AFFIRMATION SECTION ===
+  const affirmY = 1215;
+  const affirmW = W - 140;
+  const affirmH = 195;
+  const affirmX = 70;
+
+  // Outer card with subtle gradient
+  const affirmGrad = ctx.createLinearGradient(affirmX, affirmY, affirmX + affirmW, affirmY + affirmH);
+  affirmGrad.addColorStop(0, 'rgba(212,175,55,0.12)');
+  affirmGrad.addColorStop(0.5, 'rgba(255,255,255,0.06)');
+  affirmGrad.addColorStop(1, 'rgba(212,175,55,0.12)');
+  ctx.fillStyle = affirmGrad;
+  drawRoundedRect(ctx, affirmX, affirmY, affirmW, affirmH, 16);
   ctx.fill();
 
-  // 2. Decorative Gold Accent (A thin vertical line on the left)
-  ctx.fillStyle = GOLD;
-  ctx.fillRect(130, trackerY - 20, 4, 100);
+  // Gold outer border
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 2;
+  drawRoundedRect(ctx, affirmX, affirmY, affirmW, affirmH, 16);
+  ctx.stroke();
 
-  // 3. Header: The Milestone Label
-  ctx.textAlign = 'left';
-  ctx.fillStyle = GOLD;
-  ctx.font = 'bold 22px Poppins';
-  ctx.letterSpacing = '2px';
-  ctx.fillText('THE MILESTONE: DAY 3', 150, trackerY + 5);
+  // Inner thin border
+  ctx.strokeStyle = 'rgba(212,175,55,0.35)';
+  ctx.lineWidth = 1;
+  drawRoundedRect(ctx, affirmX + 10, affirmY + 10, affirmW - 20, affirmH - 20, 10);
+  ctx.stroke();
 
-  // 4. The Affirmation Statement
-  ctx.fillStyle = WHITE;
-  ctx.font = 'italic 500 28px "Playfair Display"';
+  // Header pill: "THE MILESTONE — DAY 3"
+  const pillW = 420;
+  const pillH = 38;
+  const pillX = W / 2 - pillW / 2;
+  const pillY = affirmY - 19;
+  ctx.fillStyle = GOLD;
+  drawRoundedRect(ctx, pillX, pillY, pillW, pillH, pillH / 2);
+  ctx.fill();
+
+  ctx.fillStyle = NAVY;
+  ctx.font = 'bold 20px Poppins';
+  ctx.letterSpacing = '3px';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('✦  THE MILESTONE — DAY 3  ✦', W / 2, pillY + pillH / 2);
   ctx.letterSpacing = '0px';
+  ctx.textBaseline = 'alphabetic';
 
+  // Large decorative opening quote mark
+  ctx.fillStyle = 'rgba(212,175,55,0.5)';
+  ctx.font = 'bold 100px "Playfair Display", serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('"', affirmX + 22, affirmY + 90);
+
+  // Affirmation text
   const affirmation = "I am a vessel of divine purpose, refining my character through the fire of discipline. I do not just carry a title; I carry the responsibility of a King/Queen, crowned with a vision that outlives me.";
-  
-  // Wrap the text to ensure it stays within the professional bar
-  const maxWidth = W - 320;
-  const lines = wrapText(ctx, affirmation, maxWidth);
-  
-  lines.forEach((line, index) => {
-    ctx.fillText(line, 150, trackerY + 50 + (index * 35));
+  ctx.fillStyle = WHITE;
+  ctx.font = 'italic 500 23px "Playfair Display", serif';
+  ctx.textAlign = 'center';
+  const affirmLines = wrapText(ctx, affirmation, affirmW - 120);
+  const lineH = 34;
+  const totalTextH = affirmLines.length * lineH;
+  const textStartY = affirmY + (affirmH - totalTextH) / 2 + 18;
+  affirmLines.forEach((line, i) => {
+    ctx.fillText(line, W / 2, textStartY + i * lineH);
   });
 
-  // 5. Add a small "Crown" icon or decorative element at the end (Optional)
-  ctx.font = '24px serif';
-  ctx.fillText('👑', 150 + ctx.measureText(lines[lines.length-1]).width + 15, trackerY + 50 + ((lines.length-1) * 35));
+  // Closing quote mark
+  ctx.fillStyle = 'rgba(212,175,55,0.5)';
+  ctx.font = 'bold 100px "Playfair Display", serif';
+  ctx.textAlign = 'right';
+  ctx.fillText('"', affirmX + affirmW - 22, affirmY + affirmH - 10);
 
+  // Bottom crown accent
+  ctx.fillStyle = GOLD;
+  ctx.font = '26px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('👑', W / 2, affirmY + affirmH - 14);
   // === JOIN BAR ===
   const joinY = 1380;
   ctx.fillStyle = GOLD;
