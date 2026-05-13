@@ -69,8 +69,7 @@ export default function Home() {
             The Success <span className="text-accent">Blueprint</span>
           </h1>
           <p className="mt-4 text-primary-foreground/80 font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Craft your roadmap for the year. Upload your photo, define your vision, 
-            and track your discipline.
+           Embody the vision. Design your personal roadmap to excellence and step into your identity as a King/Queen crowned with divine purpose.
           </p>
           <div className="mt-6 flex items-center justify-center gap-3">
             <span className="text-accent font-body text-xs font-bold tracking-[0.2em] uppercase">

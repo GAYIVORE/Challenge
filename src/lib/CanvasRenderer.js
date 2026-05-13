@@ -221,7 +221,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
 
     // Clip long text
     ctx.save();
-    drawRoundedRect(ctx, valueX, y, valueW, rowH, 8);
+    drawRoundedRect(ctx, valueX + 2, y, valueW - 4, rowH, 8);
     ctx.clip();
     ctx.fillText(val || placeholder, valueX + 18, y + rowH / 2);
     ctx.restore();
