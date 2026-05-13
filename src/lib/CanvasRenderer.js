@@ -422,13 +422,6 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillText('WEEK CELEBRATION', centerX, brandY + 165);
   ctx.letterSpacing = '0px';
 
-
-  ctx.fillStyle = LIGHT_GOLD;
-  ctx.font = '500 22px Poppins';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'alphabetic';
-  ctx.fillText('#CrownedWithPurpose', centerX, brandY + bH + 55);
-  
   // Bottom thin gold rule
   ctx.strokeStyle = GOLD;
   ctx.lineWidth = 1;
@@ -437,5 +430,9 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.lineTo(bX + bW - 40, brandY + bH - 18);
   ctx.stroke();
 
-  
+  ctx.fillStyle = LIGHT_GOLD;
+  ctx.font = '500 22px Poppins';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText('#CrownedWithPurpose', centerX, brandY + bH + 55-20);
 }
