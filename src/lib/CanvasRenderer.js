@@ -161,31 +161,52 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.textAlign = 'left';
   ctx.fillText('blueprint', W / 2 - 25, frameY + 57);
 
-  // Photo Drawing Logic
-  const pAreaX = frameX + 60, pAreaY = frameY + 80, pAreaW = frameW - 120, pAreaH = frameH - 110;
+  // Dedicated image area coordinates
+  const pAreaX = frameX + 40;
+  const pAreaY = frameY + 95;          // Shifted down slightly to clear the text elegantly
+  const pAreaW = frameW - 80;          // 760px wide
+  const pAreaH = frameH - 135;         // 485px high
 
   if (photo) {
     ctx.save();
+    // 1. Create a clean container mask for the image
     drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
     ctx.clip();
-    const ratio = Math.max(pAreaW / photo.width, pAreaH / photo.height);
-    const w = photo.width * ratio, h = photo.height * ratio;
-    ctx.drawImage(photo, pAreaX + (pAreaW - w) / 2, pAreaY + (pAreaH - h) / 2, w, h);
+
+    // 2. PERFECT ASPECT FILL (COVER) LOGIC
+    // Find the scale ratio required to fill BOTH width and height completely
+    const scale = Math.max(pAreaW / photo.width, pAreaH / photo.height);
+    
+    // Determine the scaled dimensions
+    const w = photo.width * scale;
+    const h = photo.height * scale;
+
+    // 3. Center the scaled image inside the target viewport bounds
+    const xOffset = pAreaX + (pAreaW - w) / 2;
+    const yOffset = pAreaY + (pAreaH - h) / 2;
+
+    // Draw the image cleanly using the dynamically calculated positions
+    ctx.drawImage(photo, xOffset, yOffset, w, h);
     ctx.restore();
+
+    // 4. Clean gold outer stroke line accent around the cropped image boundaries
     ctx.strokeStyle = GOLD;
     ctx.lineWidth = 3;
     drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
     ctx.stroke();
   } else {
+    // Fallback placeholder when no photo is uploaded
     ctx.fillStyle = '#f8f8f8';
     drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
     ctx.fill();
+    
     ctx.fillStyle = '#bbb';
     ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
     ctx.font = '500 24px Poppins';
-    ctx.fillText('PHOTO AREA', W/2, pAreaY + pAreaH/2);
+    ctx.fillText('PHOTO AREA', W / 2, pAreaY + pAreaH / 2);
+    ctx.textBaseline = 'alphabetic'; // Reset standard canvas alignment baseline
   }
-
 
   // === VISION & DISCIPLINE ===
   const drawEntry = (y, label, val, placeholder) => {
