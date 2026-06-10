@@ -154,12 +154,12 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillStyle = NAVY;
   ctx.font = '700 40px Poppins, sans-serif';
   ctx.textAlign = 'right';
-  ctx.fillText('MY', W / 2 - 30, frameY + 30);
+  ctx.fillText('MY', W / 2 - 30, frameY + 35);
   
   ctx.fillStyle = GOLD;
   ctx.font = 'italic 700 44px "Playfair Display", serif';
   ctx.textAlign = 'left';
-  ctx.fillText('blueprint', W / 2 - 25, frameY + 57);
+  ctx.fillText('blueprint', W / 2 - 25, frameY + 37);
 
   // Dedicated image area coordinates
   const pAreaX = frameX + 40;
