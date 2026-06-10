@@ -141,50 +141,71 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.font = '700 24px Poppins, sans-serif';
   ctx.fillText("LADIES' AND GENTS' WEEK CELEBRATION", W / 2, sectionY + 35);
 
-  // === PHOTO FRAME ===
-  const frameX = 120;
-  const frameY = 375;
-  const frameW = W - 240;
-  const frameH = 620;
+ // === PHOTO FRAME ===
+const frameX = 120;
+const frameY = 375;
+const frameW = W - 240;
+const frameH = 620;
 
-  ctx.fillStyle = WHITE;
-  drawRoundedRect(ctx, frameX, frameY, frameW, frameH, 16);
+// Draw the main white backing frame
+ctx.fillStyle = WHITE;
+drawRoundedRect(ctx, frameX, frameY, frameW, frameH, 16);
+ctx.fill();
+
+// Title overlay at the top of the frame
+ctx.fillStyle = NAVY;
+ctx.font = '700 40px Poppins, sans-serif';
+ctx.textAlign = 'right';
+ctx.fillText('MY', W / 2 - 30, frameY + 55);
+
+ctx.fillStyle = GOLD;
+ctx.font = 'italic 700 44px "Playfair Display", serif';
+ctx.textAlign = 'left';
+ctx.fillText('blueprint', W / 2 - 25, frameY + 57);
+
+// --- FIX START: Clear, dedicated dimensions for the actual image slot ---
+const pAreaX = frameX + 40;
+const pAreaY = frameY + 95; // Shifted down slightly to clear the "MY blueprint" text cleanly
+const pAreaW = frameW - 80;
+const pAreaH = frameH - 135; // Dynamically sized to perfectly fill the bottom section of the frame
+
+if (photo) {
+  ctx.save();
+  // 1. Create a clean container mask for the image
+  drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
+  ctx.clip();
+
+  // 2. Standardize Aspect Fill (Cover) logic: scale up based on the larger scale deficit
+  const scale = Math.max(pAreaW / photo.width, pAreaH / photo.height);
+  const w = photo.width * scale;
+  const h = photo.height * scale;
+
+  // 3. Center the image beautifully inside the mask coordinates
+  const xOffset = pAreaX + (pAreaW - w) / 2;
+  const yOffset = pAreaY + (pAreaH - h) / 2;
+
+  ctx.drawImage(photo, xOffset, yOffset, w, h);
+  ctx.restore();
+
+  // 4. Clean, crisp border overlay directly over the image edge
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 3;
+  drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
+  ctx.stroke();
+} else {
+  // Fallback placeholder when no photo is uploaded
+  ctx.fillStyle = '#f8f8f8';
+  drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
   ctx.fill();
-
-  ctx.fillStyle = NAVY;
-  ctx.font = '700 40px Poppins, sans-serif';
-  ctx.textAlign = 'right';
-  ctx.fillText('MY', W / 2 - 30, frameY + 55);
   
-  ctx.fillStyle = GOLD;
-  ctx.font = 'italic 700 44px "Playfair Display", serif';
-  ctx.textAlign = 'left';
-  ctx.fillText('blueprint', W / 2 - 25, frameY + 57);
-
-  // Photo Drawing Logic
-  const pAreaX = frameX + 60, pAreaY = frameY + 80, pAreaW = frameW - 120, pAreaH = frameH - 110;
-
-  if (photo) {
-    ctx.save();
-    drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
-    ctx.clip();
-    const ratio = Math.max(pAreaW / photo.width, pAreaH / photo.height);
-    const w = photo.width * ratio, h = photo.height * ratio;
-    ctx.drawImage(photo, pAreaX + (pAreaW - w) / 2, pAreaY + (pAreaH - h) / 2, w, h);
-    ctx.restore();
-    ctx.strokeStyle = GOLD;
-    ctx.lineWidth = 3;
-    drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
-    ctx.stroke();
-  } else {
-    ctx.fillStyle = '#f8f8f8';
-    drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
-    ctx.fill();
-    ctx.fillStyle = '#bbb';
-    ctx.textAlign = 'center';
-    ctx.font = '500 24px Poppins';
-    ctx.fillText('PHOTO AREA', W/2, pAreaY + pAreaH/2);
-  }
+  ctx.fillStyle = '#bbb';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '500 24px Poppins';
+  ctx.fillText('PHOTO AREA', W / 2, pAreaY + pAreaH / 2);
+  ctx.textBaseline = 'alphabetic'; // reset baseline
+}
+// --- FIX END ---
 
   // === VISION & DISCIPLINE ===
   const drawEntry = (y, label, val, placeholder) => {
