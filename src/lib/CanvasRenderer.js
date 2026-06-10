@@ -154,7 +154,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillStyle = NAVY;
   ctx.font = '700 40px Poppins, sans-serif';
   ctx.textAlign = 'right';
-  ctx.fillText('MY', W / 2 - 30, frameY + 55);
+  ctx.fillText('MY', W / 2 - 30, frameY + 30);
   
   ctx.fillStyle = GOLD;
   ctx.font = 'italic 700 44px "Playfair Display", serif';
@@ -165,7 +165,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   const pAreaX = frameX + 40;
   const pAreaY = frameY + 65;          // Shifted down slightly to clear the text elegantly
   const pAreaW = frameW - 80;          // 760px wide
-  const pAreaH = frameH - 100;         // 485px high
+  const pAreaH = frameH - 90;         // 485px high
 
   if (photo) {
     ctx.save();
