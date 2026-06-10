@@ -162,24 +162,20 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillText('blueprint', W / 2 - 25, frameY + 37);
 
   // Dedicated image area coordinates
- const pAreaX = frameX + 40;
-  const pAreaY = frameY + 45;          
+const pAreaX = frameX + 40;
+  const pAreaY = frameY + 45;          // Shifted down slightly to clear the text elegantly
   const pAreaW = frameW - 80;          // 760px wide
-  const pAreaH = frameH - 70;          // 550px high
+  const pAreaH = frameH - 70;         // 485px high
 
   if (photo) {
     ctx.save();
-    // 1. Create a clean container mask for the frame area
+    // 1. Create a clean container mask for the image
     drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
     ctx.clip();
 
-    // Fill the background area with a clean color so empty space looks intentional
-    ctx.fillStyle = '#001744'; // Matching your DARK_NAVY background
-    ctx.fillRect(pAreaX, pAreaY, pAreaW, pAreaH);
-
-    // 2. ASPECT CONTAIN (FIT) LOGIC
-    // Using Math.min ensures the entire image scales down to fit inside the box bounds
-    const scale = Math.min(pAreaW / photo.width, pAreaH / photo.height);
+    // 2. PERFECT ASPECT FILL (COVER) LOGIC
+    // Find the scale ratio required to fill BOTH width and height completely
+    const scale = Math.max(pAreaW / photo.width, pAreaH / photo.height);
     
     // Determine the scaled dimensions
     const w = photo.width * scale;
@@ -189,11 +185,11 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
     const xOffset = pAreaX + (pAreaW - w) / 2;
     const yOffset = pAreaY + (pAreaH - h) / 2;
 
-    // Draw the image completely without losing any edges
+    // Draw the image cleanly using the dynamically calculated positions
     ctx.drawImage(photo, xOffset, yOffset, w, h);
     ctx.restore();
 
-    // 4. Clean gold outer stroke line accent around the frame boundaries
+    // 4. Clean gold outer stroke line accent around the cropped image boundaries
     ctx.strokeStyle = GOLD;
     ctx.lineWidth = 3;
     drawRoundedRect(ctx, pAreaX, pAreaY, pAreaW, pAreaH, 12);
@@ -209,7 +205,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
     ctx.textBaseline = 'middle';
     ctx.font = '500 24px Poppins';
     ctx.fillText('PHOTO AREA', W / 2, pAreaY + pAreaH / 2);
-    ctx.textBaseline = 'alphabetic'; 
+    ctx.textBaseline = 'alphabetic'; // Reset standard canvas alignment baseline
   }
   // === VISION & DISCIPLINE ===
   const drawEntry = (y, label, val, placeholder) => {
