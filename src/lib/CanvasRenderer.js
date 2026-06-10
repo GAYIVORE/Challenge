@@ -143,7 +143,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
 
 // === PHOTO FRAME ===
   const frameX = 120;
-  const frameY = 375;
+  const frameY = 500;
   const frameW = W - 240;
   const frameH = 650;
 
