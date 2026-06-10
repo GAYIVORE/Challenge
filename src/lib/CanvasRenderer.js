@@ -145,7 +145,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   const frameX = 120;
   const frameY = 375;
   const frameW = W - 240;
-  const frameH = 985;
+  const frameH = 650;
 
   ctx.fillStyle = WHITE;
   drawRoundedRect(ctx, frameX, frameY, frameW, frameH, 16);
