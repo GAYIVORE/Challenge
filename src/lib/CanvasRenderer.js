@@ -364,7 +364,7 @@ const pAreaX = frameX + 40;
   ctx.fillText('Join the Panel Discussion:', W / 2, panelY + 38);
   ctx.fillStyle = GOLD;
   ctx.font = '700 26px Poppins';
-  ctx.fillText('THURSDAY  |  APEWOSIKA AUDITORIUM  |  6:30 PM', W / 2, panelY + 78);
+  ctx.fillText('FRIDAY  |  S.K AGYAPONG (LLT)  |  6:30 PM', W / 2, panelY + 78);
 
 
   // === LADIES & GENTS WEEK CELEBRATION BANNER ===
