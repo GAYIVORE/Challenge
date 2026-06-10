@@ -142,7 +142,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   ctx.fillText("LADIES' AND GENTS' WEEK CELEBRATION", W / 2, sectionY + 35);
 
 // === PHOTO FRAME ===
-  const frameX = 160;
+  const frameX = 120;
   const frameY = 375;
   const frameW = W - 240;
   const frameH = 650;
