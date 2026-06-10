@@ -163,7 +163,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
 
   // Dedicated image area coordinates
   const pAreaX = frameX + 40;
-  const pAreaY = frameY + 65;          // Shifted down slightly to clear the text elegantly
+  const pAreaY = frameY + 45;          // Shifted down slightly to clear the text elegantly
   const pAreaW = frameW - 80;          // 760px wide
   const pAreaH = frameH - 90;         // 485px high
 
