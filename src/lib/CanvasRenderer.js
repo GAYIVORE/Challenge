@@ -165,7 +165,7 @@ export function renderBlueprint(canvas, { photo, vision, discipline, name, logoI
   const pAreaX = frameX + 40;
   const pAreaY = frameY + 45;          // Shifted down slightly to clear the text elegantly
   const pAreaW = frameW - 80;          // 760px wide
-  const pAreaH = frameH - 90;         // 485px high
+  const pAreaH = frameH - 70;         // 485px high
 
   if (photo) {
     ctx.save();
